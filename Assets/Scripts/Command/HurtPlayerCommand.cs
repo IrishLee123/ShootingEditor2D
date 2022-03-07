@@ -1,5 +1,7 @@
 using FrameworkDesign;
 using ShootingEditor2D.Model;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ShootingEditor2D.Command
 {
@@ -14,7 +16,13 @@ namespace ShootingEditor2D.Command
 
         protected override void OnExecute()
         {
-            this.GetModel<IPlayerModel>().HP.Value -= Hurt;
+            var model = this.GetModel<IPlayerModel>();
+            model.HP.Value -= Hurt;
+
+            if (model.HP.Value <= 0)
+            {
+                SceneManager.LoadScene("GameOver");
+            }
         }
     }
 }

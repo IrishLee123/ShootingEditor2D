@@ -13,6 +13,7 @@ namespace ShootingEditor2D
             
             // register systems
             this.RegisterSystem<IStatSystem>(new StatSystem());
+            this.RegisterSystem<IGunSystem>(new GunSystem());
             
             // register utilities
 

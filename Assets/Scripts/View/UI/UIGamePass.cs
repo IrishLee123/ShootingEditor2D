@@ -6,7 +6,7 @@ using NotImplementedException = System.NotImplementedException;
 
 namespace ShootingEditor2D.View.UI
 {
-    public class GameUIPass : MonoBehaviour, IController
+    public class UIGamePass : MonoBehaviour, IController
     {
         private readonly Lazy<GUIStyle> mLabelStyle = new Lazy<GUIStyle>(() => new GUIStyle(GUI.skin.label)
         {
@@ -37,7 +37,7 @@ namespace ShootingEditor2D.View.UI
             if (GUI.Button(buttonRect, "返回首页", mButtonStyle.Value))
             {
                 Debug.Log("返回首页");
-                SceneManager.LoadScene("Game");
+                SceneManager.LoadScene("GameStart");
             }
         }
 

@@ -29,18 +29,24 @@ namespace ShootingEditor2D
             {
                 mJumpPressed = true;
             }
-            
+
             if (Input.GetKeyDown(KeyCode.J))
             {
                 mGun.Shoot();
             }
-        }
-
-        private void FixedUpdate()
-        {
+            
             var horizontalMovement = Input.GetAxis("Horizontal");
+            
+            if (horizontalMovement < 0 && transform.localScale.x > 0 ||
+                horizontalMovement > 0 && transform.localScale.x < 0)
+            {
+                var localScale = transform.localScale;
+                localScale.x = -localScale.x;
+                transform.localScale = localScale;
+            }
+            
             mRigidbody2D.velocity = new Vector2(horizontalMovement * 5, mRigidbody2D.velocity.y);
-
+ 
             // jump when key down and player on the ground
             if (mJumpPressed && mGroundCheck.Triggered)
             {
@@ -48,6 +54,11 @@ namespace ShootingEditor2D
             }
 
             mJumpPressed = false;
+        }
+
+        private void FixedUpdate()
+        {
+
         }
     }
 }

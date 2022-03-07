@@ -1,3 +1,4 @@
+using System;
 using FrameworkDesign;
 using ShootingEditor2D.Command;
 using UnityEngine;
@@ -11,11 +12,14 @@ namespace ShootingEditor2D
         private void Awake()
         {
             mRigidbody2D = GetComponent<Rigidbody2D>();
+
+            Destroy(gameObject, 5);
         }
 
         private void Start()
         {
-            mRigidbody2D.velocity = new Vector2(10, 0);
+            var isRight = Mathf.Sign(transform.lossyScale.x);
+            mRigidbody2D.velocity = new Vector2(10 * isRight, 0);
         }
 
         private void OnCollisionEnter2D(Collision2D col)
