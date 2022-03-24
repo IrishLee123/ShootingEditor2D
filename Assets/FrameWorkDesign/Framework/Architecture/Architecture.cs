@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FrameWorkDesign;
 
 namespace FrameworkDesign
 {
@@ -26,6 +27,8 @@ namespace FrameworkDesign
 
         void SendEvent<T>() where T : new();
         void SendEvent<T>(T e);
+
+        TResult SendQuery<TResult>(IQuery<TResult> query);
 
         IUnRegister RegisterEvent<T>(Action<T> onEvent);
         void UnRegisterEvent<T>(Action<T> onEvent);
@@ -195,7 +198,6 @@ namespace FrameworkDesign
             var command = new T();
             command.SetArchitecture(this);
             command.Execute();
-            command.SetArchitecture(null);
         }
 
         public void SendCommand<T>(T command) where T : ICommand
@@ -203,7 +205,6 @@ namespace FrameworkDesign
             command.SetArchitecture(this);
             command.Execute();
         }
-
 
         private IEventSystem mEventSystem = new EventSystem();
 
@@ -215,6 +216,12 @@ namespace FrameworkDesign
         public void SendEvent<T>(T e)
         {
             mEventSystem.Send<T>(e);
+        }
+
+        public TResult SendQuery<TResult>(IQuery<TResult> query)
+        {
+            query.SetArchitecture(this);
+            return query.Do();
         }
 
         public IUnRegister RegisterEvent<T>(Action<T> onEvent)

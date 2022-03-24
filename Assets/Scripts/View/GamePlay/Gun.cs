@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Command;
 using FrameworkDesign;
 using UnityEngine;
 
@@ -26,14 +27,19 @@ namespace ShootingEditor2D
 
         public void Shoot()
         {
-            if (mGunInfo.BulletCount.Value > 0)
+            if (mGunInfo.State.Value == GunState.Idle && mGunInfo.BulletCountInGun.Value > 0)
             {
                 var bullet = Instantiate(mBullet, mBullet.transform.position, mBullet.transform.rotation);
                 bullet.transform.localScale = mBullet.transform.lossyScale;
                 bullet.gameObject.SetActive(true);
-                
+
                 this.SendCommand<ShootCommand>();
             }
+        }
+
+        public void Reload()
+        {
+            this.SendCommand<ReloadCommand>();
         }
 
         private void OnDestroy()

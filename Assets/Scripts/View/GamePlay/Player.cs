@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FrameworkDesign;
 using UnityEngine;
 
 namespace ShootingEditor2D
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IController
     {
         private Rigidbody2D mRigidbody2D;
 
@@ -34,9 +35,19 @@ namespace ShootingEditor2D
             {
                 mGun.Shoot();
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                mGun.Reload();
+            }
+
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                this.SendCommand(new PickGunCommand("UMP9", 45, 45));
+            }
+
             var horizontalMovement = Input.GetAxis("Horizontal");
-            
+
             if (horizontalMovement < 0 && transform.localScale.x > 0 ||
                 horizontalMovement > 0 && transform.localScale.x < 0)
             {
@@ -44,9 +55,9 @@ namespace ShootingEditor2D
                 localScale.x = -localScale.x;
                 transform.localScale = localScale;
             }
-            
+
             mRigidbody2D.velocity = new Vector2(horizontalMovement * 5, mRigidbody2D.velocity.y);
- 
+
             // jump when key down and player on the ground
             if (mJumpPressed && mGroundCheck.Triggered)
             {
@@ -56,9 +67,9 @@ namespace ShootingEditor2D
             mJumpPressed = false;
         }
 
-        private void FixedUpdate()
+        public IArchitecture GetArchitecture()
         {
-
+            return ShootingEditorApp.Interface;
         }
     }
 }

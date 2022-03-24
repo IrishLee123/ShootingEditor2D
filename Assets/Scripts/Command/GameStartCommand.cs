@@ -15,7 +15,7 @@ namespace ShootingEditor2D
             SceneManager.LoadScene("Game");
 
             this.GetModel<IPlayerModel>().HP.Value = 3;
-            this.GetSystem<IGunSystem>().CurrentGun.BulletCount.Value = 3;
+            this.GetSystem<IGunSystem>().CurrentGun.BulletCountInGun.Value = 3;
         }
     }
 }

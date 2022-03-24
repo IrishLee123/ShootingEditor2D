@@ -5,7 +5,7 @@ using System;
 
 namespace FrameworkDesign
 {
-    public class BindableProperty<T> where T : IEquatable<T>
+    public class BindableProperty<T>
     {
         private T _mValue = default(T);
 
@@ -42,7 +42,7 @@ namespace FrameworkDesign
         }
     }
 
-    public class BindablePropertyUnRegister<T> : IUnRegister where T : IEquatable<T>
+    public class BindablePropertyUnRegister<T> : IUnRegister
     {
         public BindableProperty<T> BindableProperty { get; set; }
 

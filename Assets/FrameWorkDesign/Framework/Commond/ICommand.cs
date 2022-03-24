@@ -4,14 +4,13 @@ namespace FrameworkDesign
     /// 命令接口
     /// </summary>
     public interface ICommand : IBelongToArchitecture, ICanSetArchitecture,
-        ICanGetSystem, ICanGetModel, ICanGetUtility, ICanSendCommand, ICanSendEvent
+        ICanGetSystem, ICanGetModel, ICanGetUtility, ICanSendCommand, ICanSendEvent, ICanSendQuery
     {
         void Execute();
     }
 
     public abstract class AbstractCommand : ICommand
     {
-
         private IArchitecture mArchitecture;
 
         IArchitecture IBelongToArchitecture.GetArchitecture()

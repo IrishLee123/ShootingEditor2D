@@ -9,14 +9,15 @@ namespace ShootingEditor2D
         protected override void IocInjection()
         {
             // register models
+            this.RegisterModel<IGunConfigModel>(new GunConfigModel());
             this.RegisterModel<IPlayerModel>(new PlayerModel());
-            
+
             // register systems
             this.RegisterSystem<IStatSystem>(new StatSystem());
             this.RegisterSystem<IGunSystem>(new GunSystem());
-            
-            // register utilities
+            this.RegisterSystem<ITimeSystem>(new TimeSystem());
 
+            // register utilities
         }
     }
 }
